@@ -36,10 +36,10 @@ const SearchBar = () => {
         searchParams.delete('model');
       }
        if(manufacturer){
-        searchParams.set('manufacturer',manufacturer);
+        searchParams.set('make',manufacturer);
       }
       else{
-        searchParams.delete('manufacturer');
+        searchParams.delete('make');
       }
       const newPathname=`${window.location.pathname}?${searchParams.toString()}`
     router.push(newPathname)

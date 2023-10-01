@@ -10,14 +10,15 @@ import Image from 'next/image'
 
 export default  async function Home( searchParams) {
   const allCars=await fetchCars({
-    manufacturer:searchParams.manufacturer||'',
+    make:searchParams.make||'',
     year:searchParams.year||'2020',
     limit:searchParams.limit||'10',
-    fuel:searchParams.fuel||'',
+    fuel_type:searchParams.fuel||'',
     model:searchParams.model
 
   });
-  console.log(allCars);
+  console.log(searchParams);
+  // console.log(allCars);
 
   const isDataEmpty =!Array.isArray(allCars)||allCars.length<1||!allCars;
   return (

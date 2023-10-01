@@ -1,22 +1,37 @@
 import { CarProps } from "@/types";
 import { FilterProps } from "@/types";
+import axios from "axios";
 
-export async function fetchCars(filters:FilterProps) {
-  const {manufacturer,year,model,limit,fuel}=filters;
-    const headers={'X-RapidAPI-Key': '1126204450mshd83ba7fa13b491dp1ebe3djsnae766e33565f',
-		'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'}
-    const response = await fetch(
-      `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-      {
-        headers: headers,
-      }
-    );
-        const result =await  response.json();
-        console.log(result);
-return result;
-    
-}
-export const generateCarImageUrl =(car:CarProps ,angle?:string)=>{
+export async function fetchCars(filters: { year: string; fuel_type: string; limit: string; model: any; make: string }) {
+  const { make, year, model, limit, fuel_type } = filters;
+  const apiKey = '1126204450mshd83ba7fa13b491dp1ebe3djsnae766e33565f';
+  const rapidApiHost = 'cars-by-api-ninjas.p.rapidapi.com';
+
+  try {
+    const response = await axios.get(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars`, {
+      headers: {
+        'X-RapidAPI-Key': apiKey,
+        'X-RapidAPI-Host': rapidApiHost,
+      },
+      params: {
+        make,
+        year,
+        model,
+        limit,
+        fuel_type,
+
+
+      },
+    });
+
+    const result = response.data;
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error('Error fetching cars:', error);
+    throw error;
+  }
+}export const generateCarImageUrl =(car:CarProps ,angle?:string)=>{
   const url=new URL('https://cdn.imagin.studio/getimage'); 
   const {make , year, model}=car
   url.searchParams.append('customer','hrjavascript-mastery');
