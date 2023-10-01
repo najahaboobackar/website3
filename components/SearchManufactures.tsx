@@ -1,22 +1,22 @@
 "use client";
 
-import { manufacturers } from '@/constants/constants';
+import { makes } from '@/constants/constants';
 import { SearchManufacturesProps } from '@/types';
 import { Combobox, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { useState } from 'react';
 
 
-const SearchManufactures = ({manufacturer, setManufacturer}: SearchManufacturesProps) => {
+const SearchManufactures = ({make, setMake}: SearchManufacturesProps) => {
     const [query, setQuery] = useState(" ");
-    const FilterManufacturer = query === "" 
-        ? manufacturers
-        : manufacturers.filter(item => 
+    const Filtermake = query === "" 
+        ? makes
+        : makes.filter(item => 
             item.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
     return (
-        <div className='search_manufacturer'>
+        <div className='search_make'>
             <Combobox>
                 <div className='relative w-full'> </div>
                 <Combobox.Button className="absolute top-[14px]">
@@ -29,9 +29,9 @@ const SearchManufactures = ({manufacturer, setManufacturer}: SearchManufacturesP
                     />
                 </Combobox.Button>
                 <Combobox.Input 
-                    className="search-manufacturer__input" 
+                    className="search-make__input" 
                     placeholder='Volkswagon'
-                    displayValue={(manufacturer: string) => manufacturer}
+                    displayValue={(make: string) => make}
                     onChange={(e) => setQuery(e.target.value)}
                 />
                 <Transition
@@ -42,14 +42,14 @@ const SearchManufactures = ({manufacturer, setManufacturer}: SearchManufacturesP
                 >
                     <div>
                         <Combobox.Options>
-                            {FilterManufacturer.length === 0 && query !== "" ? (
-                                <Combobox.Option value={query} className="search-manufacturer__option">
+                            {Filtermake.length === 0 && query !== "" ? (
+                                <Combobox.Option value={query} className="search-make__option">
                                     create "{query}"
                                 </Combobox.Option>
-                            ) : FilterManufacturer.map(item => (
+                            ) : Filtermake.map(item => (
                                 <Combobox.Option 
                                     key={item}
-                                    className={({ active }) => `search-manufacturer__option ${active ? 'bg-primary-blue text-white' : 'text-grey-800'}`}
+                                    className={({ active }) => `search-make__option ${active ? 'bg-primary-blue text-white' : 'text-grey-800'}`}
                                     value={item}
                                 >
                                     {({ selected, active }) => (

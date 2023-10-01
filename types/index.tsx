@@ -13,8 +13,17 @@ isDisabled?:boolean;
 
 }
 export interface SearchManufacturesProps{
-    manufacturer: string;
-    setManufacturer :(manufacturer: string)=>void;
+    make: string;
+    setMake :(make: string)=>void;
+}
+export interface CustomFilterProps{
+    title :string;
+    options:OPtionProps[];
+}
+export interface OPtionProps {
+    title:string;
+    value:string;
+
 }
 export interface CarProps{
     city_mpg:number;
@@ -34,7 +43,7 @@ export interface CarProps{
 
 }
 export interface FilterProps{
-    manufacturer:string;
+    make:string;
     year:number;
     limit:number;
     fuel:string;

@@ -15,32 +15,25 @@ const SearchButton =({otherClasses}:{otherClasses:string})=>{
 }
 
 const SearchBar = () => {
-    const [manufacturer,setManufacturer]=useState(" ");
+    const [make,setMake]=useState(" ");
     const [model,setModel]=useState(" ");
     const router=useRouter();
     const handleSearch =(e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
-      if(manufacturer===" "&& model===" ") {
+      if(make===" "&& model===" ") {
       return alert("pls fill the box")
       
 
     }
-    updateSearchParams(model.toLowerCase(),manufacturer.toLowerCase());
+
+    updateSearchParams(model.toLowerCase(),make.toLowerCase());
     }
-    const updateSearchParams =(model:string,manufacturer:string)=>{
+    const updateSearchParams =(model:string,make:string)=>{
       const searchParams = new URLSearchParams(window.location.search);
-      if(model){
-        searchParams.set('model',model);
-      }
-      else{
-        searchParams.delete('model');
-      }
-       if(manufacturer){
-        searchParams.set('make',manufacturer);
-      }
-      else{
-        searchParams.delete('make');
-      }
+        searchParams.set("model",model);
+        searchParams.set("make",make);
+        console.log(searchParams.toString());
+
       const newPathname=`${window.location.pathname}?${searchParams.toString()}`
     router.push(newPathname)
     }
@@ -48,8 +41,8 @@ const SearchBar = () => {
    <form className='searchbar' onSubmit={handleSearch}>
     <div className='searchbar__item'>
         <SearchManufactures
-        manufacturer ={manufacturer }
-        setManufacturer={ setManufacturer}
+        make ={make }
+        setMake={ setMake}
         />
 <SearchButton otherClasses="sm:hidden"/>
     </div>
